@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Hambúrguer - Itália</title>
+  <style>
+    body {
+      margin: 0;
+      background-color:#2e2e2e;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: linear-gradient(to right,black, white);
+    }
+
+    /* Botão com interrogação */
+    .help-btn
+   {
+     width: 40px;
+     heigth:40px;
+     border-radius:50%;
+     backgorund:white;
+     color: Black;
+     font-weight:bold;
+     font-size:20px;
+     display:flex;
+     align-items:center;
+     justify-content:center;
+     cursor:pointer;
+     position:relative;
+   }
+
+    .tooltip
+    {
+      display:none;
+      position:absolute;
+      top:50px;
+      left:0;
+      background:#fff;
+      color:#000;
+      padding:8px 12px;
+      border-radius:8px;
+      box-shadow:0 4px 8px rgba(0,0,0,0.2);
+      white-space: nowrap;
+      font-size: 14px;
+      font-weight: bold;
+      z-index:10;
+    }
+
+    .help-btn.active .tooltip
+    {
+      display: block;
+    }
+  
+    /* Botão menu hambúrguer */
+    .menu-btn {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 24px;
+      cursor: pointer;
+    }
+    .menu-btn span {
+      display: block;
+      height: 6px;
+      border-radius: 2px;
+      transition: 0.3s ease;
+    }
+    .menu-btn span:nth-child(1) { background: green; }
+    .menu-btn span:nth-child(2) { background: white; }
+    .menu-btn span:nth-child(3) { background: red; }
+    .menu-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px,5px);
+      background: red;
+    }
+    .menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px,-5px);
+      background: green;
+    }
+
+    /* Ícone da lupa */
+    .search-container
+    {
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .search-text
+    {
+      font-size:16px;
+      font-weight: bold;
+      color: black;
+      cursor: pointer;
+    }
+
+    .search-icon
+    {
+      font-size:20px;
+      cursor:pointer;
+      color:black;
+    }
+
+   </style>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+  <body>
+    <!-- Menu no topo-->
+    <div class="help-btn" onclick="this.classList.toggle('active')">
+      ?
+      <div class= "tooltip">Quem Somos?</div>
+    </div>
+
+    <!--Botão menu Hambúrguer -->
+    <div class="menu-btn onclick="this,classList.toggle('active')">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+    <!-- Busca -->
+    <div class= "search-container">
+      <span class= " search-text" > O que procura?</span>
+      <i Class= " fas fa-search search-icon"></i>
+    </div>
+  </header>
+  </body>
+</html>
+    
