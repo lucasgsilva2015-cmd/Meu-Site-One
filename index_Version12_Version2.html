@@ -1,140 +1,331 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menu Hambúrguer - Itália</title>
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carrossel com Depoimentos</title>
+<style>
+  body {
+    margin: 0;
+    background-color: #2e2e2e;
+    font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
+  }
+
+  /* Cabeçalho */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: linear-gradient(to right, black, white);
+    position: relative;
+    z-index: 1200;
+  }
+
+  .menu-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 24px;
+    cursor: pointer;
+    z-index: 1300;
+  }
+
+  .menu-btn span {
+    display: block;
+    height: 4px;
+    width: 100%;
+    border-radius: 2px;
+    transition: 0.3s ease;
+  }
+
+  .menu-btn span:nth-child(1) { background: green; }
+  .menu-btn span:nth-child(2) { background: white; }
+  .menu-btn span:nth-child(3) { background: red; }
+
+  .menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+  .menu-btn.active span:nth-child(2) { opacity: 0; }
+  .menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(6px,-6px); }
+
+  /* Estilo do Menu */
+  .menu {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 200px;
+    background: #2e2e2e;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    z-index: 1200;
+    border-radius: 0 0 0 8px;
+  }
+
+  .menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+
+  .menu li {
+    border-bottom: 1px solid #444;
+    width: 100%;
+    text-align: left;
+  }
+
+  .menu li a {
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.3s;
+  }
+
+  /* Cores individuais */
+  .menu li a.inicio { color: green; }
+  .menu li a.produtos { color: white; }
+  .menu li a.sobre { color: white; }
+  .menu li a.contato { color: red; }
+
+  .menu li a:hover {
+    background: #444;
+  }
+
+  .search-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+  }
+
+  /* Carrossel de produtos */
+  .carousel {
+    position: relative;
+    margin: 40px auto;
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  }
+
+  .carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .carousel img.active { opacity: 1; }
+
+  /* Botão flutuante */
+  .help-btn {
+    position: fixed;
+    top: 170px;
+    left: 20px;
+    background-color: white;
+    color: black;
+    font-size: 24px;
+    font-weight: bold;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+    border: none;
+    transition: all 0.3s ease;
+  }
+
+  .help-btn:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.1);
+  }
+
+  .help-btn .tooltip {
+    visibility: hidden;
+    width: 140px;
+    background-color: #2f3640;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    border-radius: 6px;
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .help-btn:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  /* Carrossel de depoimentos */
+  .testimonials {
+    margin: 40px auto;
+    padding: 20px;
+    max-width: 960px;
+    text-align: center;
+  }
+
+  .testimonials h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: white;
+  }
+
+  .testimonials-carousel {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .testimonials-carousel .track {
+    display: flex;
+    transition: transform 1s ease;
+  }
+
+  .testimonials-carousel img {
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+    margin: 0 10px;
+    background-color: black;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  }
+
+  .footer {
+    background-color: #000000;
+  }
+
+  .footer h3 { color:#ffffff; }
+  .footer p { color:#ffffff; }
+  .footer a { color:#5c3011; text-decoration: none; }
+  .footer a:hover { color:#ffffff; }
+
+  .footer h3 { margin-bottom: 10px; font-size: 20px; }
+  .footer p { margin: 5px 0; font-size: 14px; }
+
+  @media(min-width:90px) and (max-width:400px) {
     body {
-      margin: 0;
-      background-color:#2e2e2e;
-      font-family: Arial, sans-serif;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/4b/Gavioes_da_fiel_subsede.png');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain;
     }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-      background: linear-gradient(to right,black, white);
-    }
-
-    /* Botão com interrogação */
-    .help-btn
-   {
-     width: 40px;
-     heigth:40px;
-     border-radius:50%;
-     backgorund:white;
-     color: Black;
-     font-weight:bold;
-     font-size:20px;
-     display:flex;
-     align-items:center;
-     justify-content:center;
-     cursor:pointer;
-     position:relative;
-   }
-
-    .tooltip
-    {
-      display:none;
-      position:absolute;
-      top:50px;
-      left:0;
-      background:#fff;
-      color:#000;
-      padding:8px 12px;
-      border-radius:8px;
-      box-shadow:0 4px 8px rgba(0,0,0,0.2);
-      white-space: nowrap;
-      font-size: 14px;
-      font-weight: bold;
-      z-index:10;
-    }
-
-    .help-btn.active .tooltip
-    {
-      display: block;
-    }
-  
-    /* Botão menu hambúrguer */
-    .menu-btn {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 30px;
-      height: 24px;
-      cursor: pointer;
-    }
-    .menu-btn span {
-      display: block;
-      height: 6px;
-      border-radius: 2px;
-      transition: 0.3s ease;
-    }
-    .menu-btn span:nth-child(1) { background: green; }
-    .menu-btn span:nth-child(2) { background: white; }
-    .menu-btn span:nth-child(3) { background: red; }
-    .menu-btn.active span:nth-child(1) {
-      transform: rotate(45deg) translate(5px,5px);
-      background: red;
-    }
-    .menu-btn.active span:nth-child(2) {
-      opacity: 0;
-    }
-    .menu-btn.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(5px,-5px);
-      background: green;
-    }
-
-    /* Ícone da lupa */
-    .search-container
-    {
-      display:flex;
-      align-items:center;
-      gap:8px;
-    }
-
-    .search-text
-    {
-      font-size:16px;
-      font-weight: bold;
-      color: black;
-      cursor: pointer;
-    }
-
-    .search-icon
-    {
-      font-size:20px;
-      cursor:pointer;
-      color:black;
-    }
-
-   </style>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  }
+</style>
 </head>
-  <body>
-    <!-- Menu no topo-->
-    <div class="help-btn" onclick="this.classList.toggle('active')">
-      ?
-      <div class= "tooltip">Quem Somos?</div>
-    </div>
+<body>
 
-    <!--Botão menu Hambúrguer -->
-    <div class="menu-btn onclick="this,classList.toggle('active')">
+<header>
+  <div class="menu-btn" onclick="toggleMenu(this)">
     <span></span>
     <span></span>
     <span></span>
   </div>
+  <div class="search-text">O que procura?</div>
+</header>
 
-    <!-- Busca -->
-    <div class= "search-container">
-      <span class= " search-text" > O que procura?</span>
-      <i Class= " fas fa-search search-icon"></i>
+<!-- Menu de Navegação -->
+<nav class="menu">
+  <ul>
+    <li><a href="index.html" class="inicio">Início</a></li>
+    <li><a href="produtos.html" class="produtos">Produtos</a></li>
+    <li><a href="sobre.html" class="sobre">Sobre</a></li>
+    <li><a href="contato.html" class="contato">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- Carrossel de produtos -->
+<div class="carousel">
+  <img src="https://via.placeholder.com/300x300/6c5ce7/ffffff?text=Protetores" class="active" alt="Protetor">
+  <img src="https://via.placeholder.com/300x300/00cec9/ffffff?text=Shorts" alt="Shorts">
+  <img src="https://via.placeholder.com/300x300/fd79a8/ffffff?text=Camisa+UV" alt="Camisa UV">
+  <img src="https://via.placeholder.com/300x300/55efc4/ffffff?text=Protetor+Bucal" alt="Protetor Bucal">
+</div>
+
+<!-- Carrossel de depoimentos -->
+<section class="testimonials">
+  <h2>Experiência dos nossos clientes</h2>
+  <div class="testimonials-carousel">
+    <div class="track">
+      <img src="img/clientes/depo1.png" alt="Depoimento 1">
+      <img src="img/clientes/depo2.png" alt="Depoimento 2">
+      <img src="img/clientes/depo3.png" alt="Depoimento 3">
+      <img src="img/clientes/depo4.png" alt="Depoimento 4">
+      <img src="img/clientes/depo5.png" alt="Depoimento 5">
     </div>
-  </header>
-  </body>
+  </div>
+</section>
+
+<!-- Botão flutuante -->
+<div class="help-btn">?
+  <span class="tooltip">Somos uma empresa especializada em equipamentos esportivos de alta qualidade!</span>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-content">
+    <h3>GenovaOne</h3>
+    <p>
+      <a href="https://shopee.com.br/genovaone" target="_blank" rel="noopener noreferrer">
+        Visite nossa loja na Shopee
+      </a>
+    </p>
+    <p>Email para contato: 
+      <a href="mailto:lucasgsilvagenova@gmail.com">lucasgsilvagenova@gmail.com</a>
+    </p>
+    <p>Telefone: (11) 97992-7602</p>
+    <p>&copy; 2025 Todos os direitos reservados</p>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu(button) {
+    button.classList.toggle('active');
+    const menu = document.querySelector('.menu');
+    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+  }
+
+  // Carrossel principal
+  const images = document.querySelectorAll('.carousel img');
+  let index = 0;
+  setInterval(() => {
+    images[index].classList.remove('active');
+    index = (index + 1) % images.length;
+    images[index].classList.add('active');
+  }, 2000);
+
+  // Carrossel de depoimentos automático mostrando 3 de cada vez
+  const track = document.querySelector('.testimonials-carousel .track');
+  const testimonials = document.querySelectorAll('.testimonials-carousel img');
+  let currentIndex = 0;
+  const visibleItems = 3;
+  const itemWidth = 320; // 300px + 20px de margem
+  setInterval(() => {
+    currentIndex++;
+    if (currentIndex > testimonials.length - visibleItems) currentIndex = 0;
+    track.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+  }, 3000);
+</script>
+
+</body>
 </html>
-    
+
+
