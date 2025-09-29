@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós - GenovaOne</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-bg: #000000;
+            --secondary-bg: #111111;
+            --accent-green: #006400;
+            --accent-light: #00cc00;
+            --text-light: #ffffff;
+            --text-gray: #cccccc;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--primary-bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        /* Header e Navegação */
+        .main-header {
+            background: linear-gradient(to right, #000000, #2e2e2e);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--text-light);
+        }
+        
+        .logo span {
+            color: var(--accent-light);
+        }
+        
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        .main-nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        .main-nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .main-nav a.active {
+            color: var(--accent-light);
+            border-bottom: 2px solid var(--accent-light);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--text-light);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-gray);
+        }
+        
+        /* Conteúdo Principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: var(--accent-light);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-light);
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .about-text {
+            padding-right: 20px;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: var(--text-gray);
+        }
+        
+        .about-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Valores */
+        .values {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .value-card {
+            background-color: var(--secondary-bg);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .value-icon {
+            font-size: 2.5rem;
+            color: var(--accent-light);
+            margin-bottom: 20px;
+        }
+        
+        .value-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+        
+        .value-description {
+            color: var(--text-gray);
+        }
+        
+        /* Contato */
+        .contact-section {
+            background-color: var(--secondary-bg);
+            padding: 60px 20px;
+            margin-top: 50px;
+        }
+        
+        .contact-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--accent-light);
+        }
+        
+        .contact-details {
+            margin-bottom: 30px;
+        }
+        
+        .contact-details p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            color: var(--text-gray);
+        }
+        
+        .contact-details i {
+            margin-right: 10px;
+            color: var(--accent-light);
+            width: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #222;
+            border-radius: 50%;
+            color: var(--text-light);
+            font-size: 1.2rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-light);
+            transform: translateY(-3px);
+        }
+        
+        .contact-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .contact-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .contact-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Footer */
+        .main-footer {
+            background-color: #000;
+            padding: 40px 20px 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .footer-section h3 {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: var(--text-gray);
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-section a:hover {
+            color: var(--accent-light);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #222;
+            color: var(--text-gray);
+        }
+        
+        /* Responsividade */
+        @media (max-width: 900px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-text {
+                padding-right: 0;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-nav ul {
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .main-header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .values {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="logo">Genova<span>One</span></div>
+        
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="produtos.html">Produtos</a></li>
+                <li><a href="sobre.html" class="active">Sobre</a></li>
+                <li><a href="carrinho.html">Carrinho</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Sobre a GenovaOne</h1>
+        <p>Conheça nossa história, missão e valores que nos tornam referência em equipamentos esportivos</p>
+    </section>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <div class="container">
+            <h2 class="section-title">Nossa História</h2>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        A <strong>GenovaOne</strong> nasceu da paixão por esportes e do desejo de oferecer produtos de alta qualidade para atletas e entusiastas. 
+                        Fundada em 2020, nossa empresa começou como um pequeno projeto familiar e rapidamente cresceu, conquistando a confiança de clientes em todo o Brasil.
+                    </p>
+                    <p>
+                        Começamos com uma linha focada em equipamentos para artes marciais e gradualmente expandimos para atender diversas modalidades esportivas. 
+                        Cada produto é cuidadosamente selecionado e testado para garantir durabilidade, conforto e máximo desempenho.
+                    </p>
+                    <p>
+                        Hoje, somos referência no mercado de equipamentos esportivos, sempre mantendo nosso compromisso com a qualidade, preços justos e atendimento excepcional.
+                    </p>
+                </div>
+                
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1627483297885-70a3e4e5c5c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Boxeador da GenovaOne">
+                </div>
+            </div>
+            
+            <h2 class="section-title">Nossos Valores</h2>
+            
+            <div class="values">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3 class="value-title">Qualidade</h3>
+                    <p class="value-description">
+                        Priorizamos a excelência em todos os nossos produtos, garantindo materiais duráveis e alto desempenho para atletas profissionais e amadores.
+                    </p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 class="value-title">Compromisso</h3>
+                    <p class="value-description">
+                        Nosso compromisso é com a satisfação total dos clientes, oferecendo suporte antes, durante e depois de cada compra.
+                    </p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="value-title">Paixão pelo Esporte</h3>
+                    <p class="value-description">
+                        Somos movidos pela paixão pelo esporte e acreditamos no poder transformador da atividade física na vida das pessoas.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Seção de Contato -->
+        <section class="contact-section">
+            <div class="container">
+                <h2 class="section-title">Entre em Contato</h2>
+                
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h3>Fale Conosco</h3>
+                        
+                        <div class="contact-details">
+                            <p><i class="fas fa-envelope"></i> lucasgsilvagenova@gmail.com</p>
+                            <p><i class="fas fa-phone"></i> (11) 97992-7602</p>
+                            <p><i class="fas fa-map-marker-alt"></i> São Paulo, Brasil</p>
+                        </div>
+                        
+                        <h3>Siga-nos</h3>
+                        <div class="social-links">
+                            <a href="https://www.instagram.com/genovaone" target="_blank" aria-label="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://wa.me/5511979927602" target="_blank" aria-label="WhatsApp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="https://shopee.com.br/genovaone" target="_blank" aria-label="Shopee">
+                                <i class="fas fa-shopping-bag"></i>
+                            </a>
+                            <a href="https://facebook.com/genovaone" target="_blank" aria-label="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-image">
+                        <img src="https://images.unsplash.com/photo-1599058917765-a780eda07a3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Atendimento GenovaOne">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>GenovaOne</h3>
+                <p>Equipamentos esportivos de alta qualidade para atletas profissionais e amadores.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Links Rápidos</h3>
+                <a href="index.html">Início</a>
+                <a href="produtos.html">Produtos</a>
+                <a href="sobre.html">Sobre Nós</a>
+                <a href="contato.html">Contato</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <p><i class="fas fa-envelope"></i> lucasgsilvagenova@gmail.com</p>
+                <p><i class="fas fa-phone"></i> (11) 97992-7602</p>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2025 GenovaOne - Todos os direitos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        // Animação simples para os cards de valores
+        document.addEventListener('DOMContentLoaded', function() {
+            const valueCards = document.querySelectorAll('.value-card');
+            
+            valueCards.forEach((card, index) => {
+                // Adiciona um delay para a animação de cada card
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 200 * index);
+            });
+        });
+    </script>
+</body>
+</html>
